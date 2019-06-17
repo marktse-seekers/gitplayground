@@ -16,6 +16,5 @@ node('docker'){
                 build job: 'aqt-web', wait: false
             }    
         }   
-        }
     }
 }
