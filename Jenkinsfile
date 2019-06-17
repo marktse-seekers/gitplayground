@@ -11,6 +11,7 @@ node('docker'){
                 sh "docker rm -f release || true"
                 sh "docker run --rm -di --entrypoint /bin/bash --name release -v /opt/git/gitadminconfig:/root/.gitconfig jenkins_jenkins-deployment-agent:latest"
                 sh "docker exec release sh -c '${cmd}'"
+                sh "docker exec release sh -c 'cat /root/.gitconfig'"
                 sh "docker stop release"
             }    
         }   
