@@ -9,8 +9,7 @@ node('docker'){
                 def cmd = "curl -X PUT -i -u ${GIT_ADMIN}:'${GIT_ADMINPW}' https://api.github.com/repos/SeekersAdvisorsLabs/aqt-web/pulls/3/merge"
                 echo "${cmd}"
                 sh "docker rm -f release || true"
-                sh "docker run --rm -di --entrypoint /bin/bash --name release jenkins_jenkins-deployment-agent:latest"
-                sh "docker cp /opt/git/gitadminconfig release:/root/.gitconfig"
+                sh "docker run --rm -di --entrypoint /bin/bash --name release -v /opt/git/gitadminconfig:/root/.gitconfig jenkins_jenkins-deployment-agent:latest"
                 sh "docker exec release sh -c '${cmd}'"
                 sh "docker stop release"
             }    
